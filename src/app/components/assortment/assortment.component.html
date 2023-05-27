@@ -1,0 +1,33 @@
+<mat-tab-group
+  [backgroundColor]="'primary'"
+  [selectedIndex]="selectedTab()"
+  (selectedIndexChange)="selectedTab.set($event)"
+  [class.green]="tabs[selectedTab()].value === AssortmentItemType.Tea"
+  [class.brown]="tabs[selectedTab()].value === AssortmentItemType.Coffee"
+  [class.pink]="tabs[selectedTab()].value === AssortmentItemType.Dessert"
+>
+  <mat-tab *ngFor="let tab of tabs" [label]="tab.tab">
+    <section
+      *ngFor="let group of menu$[tab.value] | async"
+      [class.lactose-free]="group.group === AssortmentGroup.LactoseFree"
+      [class.double]="group.group === AssortmentGroup.Double"
+      [class.double-lactose-free]="group.group === AssortmentGroup.DoubleLactoseFree"
+      [class.non-group]="group.group === ''"
+    >
+      <header>{{ groupNames[group.group] }}</header>
+      <main>
+        <div *ngFor="let item of group.items">
+          <figure (click)="addItemToCart(item)">
+            <mat-card [matBadge]="cart.get(item)" matBadgePosition="above before" matBadgeColor="warn">
+              <mat-card-content>{{ item.name }}</mat-card-content>
+            </mat-card>
+            <figcaption>{{ item.price }}</figcaption>
+          </figure>
+        </div>
+      </main>
+    </section>
+  </mat-tab>
+</mat-tab-group>
+<button mat-fab color="primary">
+  <mat-icon>shopping_cart</mat-icon>
+</button>

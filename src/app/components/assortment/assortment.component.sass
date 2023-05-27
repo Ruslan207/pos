@@ -1,0 +1,67 @@
+mat-tab-group
+  display: block
+  --mdc-secondary-navigation-tab-container-height: 64px
+  padding-top: var(--mdc-secondary-navigation-tab-container-height)
+  &.green
+    --mat-tab-header-with-background-background-color: green
+  &.brown
+    --mat-tab-header-with-background-background-color: saddlebrown
+  &.pink
+    --mat-tab-header-with-background-background-color: deeppink
+
+mat-tab-group::ng-deep
+  .mat-mdc-tab-header
+    --mdc-secondary-navigation-tab-container-height: inherit
+    --mat-tab-header-label-text-size: 20px
+  .mat-mdc-tab-header
+    position: fixed
+    z-index: 2
+    top: 0
+    left: 0
+    width: 100%
+
+section
+  &.lactose-free
+    background: change-color(lightgreen, $lightness: 90)
+  &.double
+    background: change-color(lightblue, $lightness: 90)
+  &.double-lactose-free
+    background: change-color(lightcoral, $lightness: 90)
+  &.non-group
+    background: change-color(lightgoldenrodyellow, $lightness: 90)
+  header
+    padding: 13px 10px 0
+    margin-bottom: 5px
+    font-size: 18px
+    font-weight: bold
+  main
+    display: grid
+    gap: 15px
+    padding: 15px
+    grid-template-columns: repeat(auto-fit, 90px)
+    figure
+      margin: 0
+      text-align: center
+      mat-card
+        width: 90px
+        height: 90px
+        margin-bottom: 3px
+        user-select: none
+        cursor: pointer
+        mat-card-content
+          line-height: 1.1em
+          padding: 0
+          font-size: 35px
+          display: flex
+          align-items: center
+          justify-content: flex-start
+          height: 100%
+          width: 100%
+          overflow: hidden
+          text-align: left
+
+button[mat-fab]
+  position: fixed
+  right: 30px
+  bottom: 30px
+  z-index: 20

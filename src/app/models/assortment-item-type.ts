@@ -1,5 +1,5 @@
 export enum AssortmentItemType {
-  Desert = 'desert',
+  Dessert = 'dessert',
   Coffee = 'coffee',
   Tea = 'tea',
 }
