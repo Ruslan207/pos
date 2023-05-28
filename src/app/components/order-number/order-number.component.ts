@@ -11,16 +11,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CartService } from '../../services/cart.service';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ApiService } from '../../services/api.service';
 import { switchMap, take } from 'rxjs';
 import { AssortmentItem } from '../../models/assortment-item';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-order-number',
   standalone: true,
-  imports: [CommonModule, MatInputModule, MatButtonModule, MatIconModule, FormsModule, MatSnackBarModule],
+  imports: [CommonModule, MatInputModule, MatButtonModule, MatIconModule, FormsModule, MatSnackBarModule, MatToolbarModule, RouterLink],
   templateUrl: './order-number.component.html',
   styleUrls: ['./order-number.component.sass'],
   changeDetection: ChangeDetectionStrategy.OnPush,

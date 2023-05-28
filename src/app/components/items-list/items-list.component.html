@@ -1,32 +1,42 @@
-<mat-toolbar>
-  <a mat-icon-button routerLink="/assortment">
-    <mat-icon>arrow_back</mat-icon>
-  </a>
-  <span>Заказ</span>
-</mat-toolbar>
-
-<mat-list>
-  <mat-list-item *ngFor="let item of list()">
-    <span matListItemTitle>{{ item.item.name }}</span>
-    <span matListItemLine>{{ item.amount }}
-      <button mat-icon-button (click)="removeItem(item.item)">
-        <mat-icon color="warn">delete</mat-icon>
-      </button>
-    </span>
-  </mat-list-item>
-</mat-list>
-
-<mat-form-field appearance="outline">
-  <textarea
-    matInput
-    placeholder="Коментар"
-    ngModel
-    (ngModelChange)="setComment($event)"
-  ></textarea>
-</mat-form-field>
-
-<a routerLink="/order-number">
-  <mat-toolbar class="submit">
-    <span>{{ total() }}грн Далі</span>
+<header>
+  <mat-toolbar>
+    <a mat-icon-button routerLink="/assortment">
+      <mat-icon>arrow_back</mat-icon>
+    </a>
+    <span>Заказ</span>
+    <button mat-icon-button (click)="removeAll()">
+      <mat-icon color="white">delete</mat-icon>
+    </button>
   </mat-toolbar>
-</a>
+</header>
+<main>
+  <mat-list>
+    <mat-list-item *ngFor="let item of list()">
+      <span matListItemTitle>{{ item.item.name }}</span>
+      <span matListItemLine>{{ item.amount }}шт.
+        <div class="right-side">
+          <span>{{ item.item.price * item.amount }}грн</span>
+          <button mat-icon-button (click)="removeItem(item.item)">
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
+        </div>
+      </span>
+    </mat-list-item>
+  </mat-list>
+
+  <mat-form-field appearance="outline">
+    <textarea
+      matInput
+      placeholder="Коментар"
+      [ngModel]="comment()"
+      (ngModelChange)="setComment($event)"
+    ></textarea>
+  </mat-form-field>
+</main>
+<footer>
+  <a routerLink="/order-number">
+    <mat-toolbar class="submit">
+      <span>{{ total() }}грн Далі</span>
+    </mat-toolbar>
+  </a>
+</footer>

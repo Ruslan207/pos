@@ -1,3 +1,11 @@
+<mat-toolbar>
+  <a mat-icon-button routerLink="/order">
+    <mat-icon>arrow_back</mat-icon>
+  </a>
+  <span>Номер заказу</span>
+  <div class="fake-icon"></div>
+</mat-toolbar>
+
 <mat-form-field appearance="outline">
   <input
     matInput
@@ -5,9 +13,10 @@
     autofocus
     type="number"
     ngModel
+    (keyup)="$event.key === 'Enter' ? submitOrder() : null"
     (ngModelChange)="setOrderNumber($event)"
   />
 </mat-form-field>
-<button mat-icon-button (click)="submitOrder()">
+<button mat-fab color="primary" type="submit" (click)="submitOrder()">
   <mat-icon>send</mat-icon>
 </button>

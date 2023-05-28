@@ -1,20 +1,22 @@
 \:host
-  display: block
-  padding: 64px 15px
+  display: flex
+  flex-direction: column
+  > main
+    flex-grow: 1
+    flex-shrink: 1
+    overflow: auto
+    padding: 15px 15px 0
+  > footer
+    a
+      text-decoration: none
 
 mat-toolbar
   background: #3f51b5
   color: white
-  position: fixed
-  top: 0
-  left: 0
-  width: 100%
-  z-index: 2
   box-shadow: 0 3px 5px -1px #0003, 0 6px 10px #00000024, 0 1px 18px #0000001f
   &.submit
-    top: initial
-    bottom: 0
     cursor: pointer
+    text-decoration: none
   span
     margin: 0 auto
 
@@ -29,8 +31,12 @@ mat-list-item
   margin-bottom: 10px
   background: #f0f0f0
   line-height: 48px
-  .mdc-icon-button
+  .right-side
     position: absolute
     right: 0
     top: 50%
     transform: translateY(-50%)
+    display: flex
+    align-items: center
+    gap: 10px
+    padding: 0 10px
