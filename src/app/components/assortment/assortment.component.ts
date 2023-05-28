@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -10,11 +10,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
+import { CartService } from '../../services/cart.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-assortment',
   standalone: true,
-  imports: [CommonModule, MatTabsModule, MatCardModule, MatButtonModule, MatIconModule, MatBadgeModule],
+  imports: [CommonModule, MatTabsModule, MatCardModule, MatButtonModule, MatIconModule, MatBadgeModule, RouterLink],
   templateUrl: './assortment.component.html',
   styleUrls: ['./assortment.component.sass'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -39,14 +41,18 @@ export class AssortmentComponent {
     group: AssortmentGroup | '';
     items: AssortmentItem[];
   }>>>;
-  readonly cart = new Map<AssortmentItem, number>();
+  cart: WritableSignal<Map<number, number>>;
 
-  constructor(private apiService: ApiService) {
+  constructor(
+    private apiService: ApiService,
+    private cartService: CartService,
+  ) {
     this.menu$ = {
       [AssortmentItemType.Tea]: this.groupAssortmentByItemType(AssortmentItemType.Tea, this.apiService.getAssortment()),
       [AssortmentItemType.Coffee]: this.groupAssortmentByItemType(AssortmentItemType.Coffee, this.apiService.getAssortment()),
       [AssortmentItemType.Dessert]: this.groupAssortmentByItemType(AssortmentItemType.Dessert, this.apiService.getAssortment()),
-    }
+    };
+    this.cart = signal(this.cartService.cart);
   }
 
   private groupAssortmentByItemType(
@@ -74,10 +80,6 @@ export class AssortmentComponent {
   }
 
   addItemToCart(item: AssortmentItem): void {
-    if (!this.cart.has(item)) {
-      this.cart.set(item, 0);
-    }
-    const num = this.cart.get(item) ?? 0;
-    this.cart.set(item, num + 1);
+    this.cart.mutate(() => this.cartService.addItemToCart(item));
   }
 }

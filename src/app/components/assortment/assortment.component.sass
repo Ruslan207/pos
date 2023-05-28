@@ -1,7 +1,10 @@
-mat-tab-group
-  display: block
+\:host
   --mdc-secondary-navigation-tab-container-height: 64px
   padding-top: var(--mdc-secondary-navigation-tab-container-height)
+  display: block
+
+mat-tab-group
+  display: block
   &.green
     --mat-tab-header-with-background-background-color: green
   &.brown
@@ -22,13 +25,13 @@ mat-tab-group::ng-deep
 
 section
   &.lactose-free
-    background: change-color(lightgreen, $lightness: 90)
+    background: change-color(lightgreen, $lightness: 90%)
   &.double
-    background: change-color(lightblue, $lightness: 90)
+    background: change-color(lightblue, $lightness: 90%)
   &.double-lactose-free
-    background: change-color(lightcoral, $lightness: 90)
+    background: change-color(lightcoral, $lightness: 90%)
   &.non-group
-    background: change-color(lightgoldenrodyellow, $lightness: 90)
+    background: change-color(lightgoldenrodyellow, $lightness: 90%)
   header
     padding: 13px 10px 0
     margin-bottom: 5px
@@ -60,7 +63,7 @@ section
           overflow: hidden
           text-align: left
 
-button[mat-fab]
+[mat-fab]
   position: fixed
   right: 30px
   bottom: 30px

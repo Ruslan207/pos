@@ -18,7 +18,7 @@
       <main>
         <div *ngFor="let item of group.items">
           <figure (click)="addItemToCart(item)">
-            <mat-card [matBadge]="cart.get(item)" matBadgePosition="above before" matBadgeColor="warn">
+            <mat-card [matBadge]="cart().get(item.id)" matBadgePosition="above before" matBadgeColor="warn">
               <mat-card-content>{{ item.name }}</mat-card-content>
             </mat-card>
             <figcaption>{{ item.price }}</figcaption>
@@ -28,6 +28,6 @@
     </section>
   </mat-tab>
 </mat-tab-group>
-<button mat-fab color="primary">
+<a mat-fab color="primary" routerLink="/order">
   <mat-icon>shopping_cart</mat-icon>
-</button>
+</a>

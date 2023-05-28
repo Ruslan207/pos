@@ -24,7 +24,7 @@ export class ApiService {
           group: AssortmentGroup.LactoseFree,
         },
         {
-          id: 0,
+          id: 1,
           item_type: AssortmentItemType.Coffee,
           price: 12,
           name: 'Чай',
@@ -32,7 +32,7 @@ export class ApiService {
           group: AssortmentGroup.LactoseFree,
         },
         {
-          id: 0,
+          id: 2,
           item_type: AssortmentItemType.Coffee,
           price: 12,
           name: 'Чай',
@@ -40,7 +40,7 @@ export class ApiService {
           group: AssortmentGroup.LactoseFree,
         },
         {
-          id: 0,
+          id: 3,
           item_type: AssortmentItemType.Coffee,
           price: 12,
           name: 'Чай',
@@ -48,7 +48,7 @@ export class ApiService {
           group: AssortmentGroup.LactoseFree,
         },
         {
-          id: 0,
+          id: 4,
           item_type: AssortmentItemType.Coffee,
           price: 12,
           name: 'Чай',
@@ -56,7 +56,7 @@ export class ApiService {
           group: AssortmentGroup.LactoseFree,
         },
         {
-          id: 0,
+          id: 5,
           item_type: AssortmentItemType.Coffee,
           price: 12,
           name: 'Чай',
@@ -64,7 +64,7 @@ export class ApiService {
           group: AssortmentGroup.Double,
         },
         {
-          id: 0,
+          id: 6,
           item_type: AssortmentItemType.Coffee,
           price: 12,
           name: 'Чай',
@@ -72,7 +72,7 @@ export class ApiService {
           group: AssortmentGroup.Double,
         },
         {
-          id: 0,
+          id: 7,
           item_type: AssortmentItemType.Coffee,
           price: 12,
           name: 'Чай asd',
@@ -80,7 +80,7 @@ export class ApiService {
           group: null,
         },
         {
-          id: 0,
+          id: 8,
           item_type: AssortmentItemType.Coffee,
           price: 12,
           name: 'Чай 123',
@@ -88,7 +88,7 @@ export class ApiService {
           group: null,
         },
         {
-          id: 0,
+          id: 9,
           item_type: AssortmentItemType.Coffee,
           price: 12,
           name: 'Чай ddd',
@@ -96,7 +96,7 @@ export class ApiService {
           group: null,
         },
         {
-          id: 0,
+          id: 10,
           item_type: AssortmentItemType.Coffee,
           price: 12,
           name: 'Чай zxcasdasddsads',

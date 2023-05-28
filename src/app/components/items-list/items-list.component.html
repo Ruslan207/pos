@@ -1,0 +1,28 @@
+<mat-toolbar>
+  <a mat-icon-button routerLink="/assortment">
+    <mat-icon>arrow_back</mat-icon>
+  </a>
+  <span>Заказ</span>
+</mat-toolbar>
+
+<mat-list>
+  <mat-list-item *ngFor="let item of list$ | async">
+    <span>{{ item.name }}</span>
+    <button mat-icon-button>
+      <mat-icon color="warn">delete</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>
+
+<mat-form-field appearance="outline">
+  <textarea
+    matInput
+    placeholder="Коментар"
+    ngModel
+    (ngModelChange)="setComment($event)"
+  ></textarea>
+</mat-form-field>
+
+<mat-toolbar class="submit">
+  <span>{{ total$ | async }}грн Далі</span>
+</mat-toolbar>
