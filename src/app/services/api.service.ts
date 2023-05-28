@@ -109,6 +109,7 @@ export class ApiService {
   }
 
   makeOrder(order: OrderRequest): Observable<void> {
+    console.log(order);
     return of(void 0);
   }
 }

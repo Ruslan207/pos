@@ -8,7 +8,7 @@ export class CartService {
 
   readonly cart = new Map<number, number>();
   comment = signal<string | null>(null);
-  orderNumber = signal<string | null>(null);
+  orderNumber = signal<number | null>(null);
 
   constructor() { }
 

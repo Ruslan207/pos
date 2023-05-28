@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal, Signal, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 import { AssortmentItem } from '../../models/assortment-item';
@@ -8,9 +8,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
 import { ApiService } from '../../services/api.service';
-import { map, Observable } from 'rxjs';
 import { MatListModule } from '@angular/material/list';
 import { FormsModule } from '@angular/forms';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-items-list',
@@ -22,32 +22,35 @@ import { FormsModule } from '@angular/forms';
 })
 export class ItemsListComponent {
 
-  list$: Observable<AssortmentItem[]>;
-  total$: Observable<number>;
+  cart: WritableSignal<Map<number, number>>;
+  list: Signal<Array<{ item: AssortmentItem; amount: number }> | undefined>;
+  assortment = toSignal(this.apiService.getAssortment());
+  total = computed<number>(() => this.list()?.reduce((sum, i) => sum + i.item.price * i.amount, 0) ?? 0);
   constructor(
     private apiService: ApiService,
     private cartService: CartService,
   ) {
-    this.list$ = this.apiService.getAssortment()
-      .pipe(
-        map(assortment => {
-          const list: AssortmentItem[] = [];
-          Array.from(this.cartService.cart.entries())
-            .forEach(([id, amount]) => {
-              for (let i = 0; i < amount; i++) {
-                const item = assortment.items.find(i => i.id === id);
-                if (item) {
-                  list.push(item);
-                }
-              }
-            });
-          return list;
-        })
-      )
-    this.total$ = this.list$.pipe(map(list => list.reduce((sum, i) => sum + i.price, 0)))
+    this.cart = signal(this.cartService.cart);
+    this.list = computed(() => {
+      const list: Array<{
+        item: AssortmentItem;
+        amount: number;
+      }> = [];
+      Array.from(this.cart().entries()).forEach(([id, amount]) => {
+        const item = this.assortment()?.items.find(i => i.id === id);
+        if (item) {
+          list.push({ item, amount });
+        }
+      });
+      return list;
+    })
   }
 
   setComment(comment: string): void {
     this.cartService.comment.set(comment);
+  }
+
+  removeItem(item: AssortmentItem): void {
+    this.cart.mutate(() => this.cartService.removeItem(item));
   }
 }

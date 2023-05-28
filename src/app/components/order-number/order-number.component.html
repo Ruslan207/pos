@@ -1,0 +1,13 @@
+<mat-form-field appearance="outline">
+  <input
+    matInput
+    placeholder="Номер заказу"
+    autofocus
+    type="number"
+    ngModel
+    (ngModelChange)="setOrderNumber($event)"
+  />
+</mat-form-field>
+<button mat-icon-button (click)="submitOrder()">
+  <mat-icon>send</mat-icon>
+</button>
