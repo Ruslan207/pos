@@ -9,11 +9,13 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ApiService {
 
+  private apiPrefix = 'https://king-prawn-app-4iymu.ondigitalocean.app';
+
   constructor(
     private httpClient: HttpClient,
   ) { }
 
-  private assortment$ = this.httpClient.get<{items: AssortmentItem[]}>('https://dummyjson.com/products')
+  private assortment$ = this.httpClient.get<{items: AssortmentItem[]}>(`${this.apiPrefix}/assortment/`)
     .pipe(shareReplay({ bufferSize: 1, refCount: true }));
 
   getAssortment(): Observable<{items: AssortmentItem[]}> {
@@ -21,6 +23,6 @@ export class ApiService {
   }
 
   makeOrder(order: OrderRequest): Observable<void> {
-    return this.httpClient.post<void>('https://dummyjson.com/products/add', order);
+    return this.httpClient.post<void>(`${this.apiPrefix}/orders/`, order);
   }
 }

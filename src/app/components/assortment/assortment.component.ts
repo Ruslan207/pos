@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 import { MatTabsModule } from '@angular/material/tabs';
 import { map, Observable } from 'rxjs';
-import { AssortmentItemType } from '../../models/assortment-item-type';
+import { AssortmentCategory } from '../../models/assortment-category';
 import { AssortmentItem } from '../../models/assortment-item';
 import { AssortmentGroup } from '../../models/assortment-group';
 import { MatCardModule } from '@angular/material/card';
@@ -24,20 +24,25 @@ import { RouterLink } from '@angular/router';
 export class AssortmentComponent {
 
   readonly tabs = [
-    { tab: 'Чай', value: AssortmentItemType.Tea, },
-    { tab: 'Кава', value: AssortmentItemType.Coffee, },
-    { tab: 'Десерти', value: AssortmentItemType.Dessert, },
+    { tab: 'Напої', value: AssortmentCategory.Drinks, },
+    { tab: 'Кава', value: AssortmentCategory.Coffee, },
+    { tab: 'Їжа', value: AssortmentCategory.Food, },
   ];
-  readonly  groupNames = {
-    [AssortmentGroup.LactoseFree]: 'Безлактозне',
-    [AssortmentGroup.Double]: 'Double',
-    [AssortmentGroup.DoubleLactoseFree]: 'Double Безлактозне',
+  readonly  groupNames: Record<AssortmentGroup, string> & {'': string} = {
+    [AssortmentGroup.Classic]: 'Класика',
+    [AssortmentGroup.WithoutMilk]: 'Без молока',
+    [AssortmentGroup.CoconutMilk]: 'На кокосовому',
+    [AssortmentGroup.AlmondMilk]: 'На мигдальному',
+    [AssortmentGroup.Lemonade]: 'Лимонад',
+    [AssortmentGroup.Tea]: 'Чай',
+    [AssortmentGroup.Sweet]: 'Солодке',
+    [AssortmentGroup.Salty]: 'Солоне',
     '': '',
   };
   selectedTab = signal(1);
-  readonly AssortmentItemType = AssortmentItemType;
+  readonly AssortmentItemType = AssortmentCategory;
   readonly AssortmentGroup = AssortmentGroup;
-  menu$: Record<AssortmentItemType, Observable<Array<{
+  menu$: Record<AssortmentCategory, Observable<Array<{
     group: AssortmentGroup | '';
     items: AssortmentItem[];
   }>>>;
@@ -48,33 +53,33 @@ export class AssortmentComponent {
     private cartService: CartService,
   ) {
     this.menu$ = {
-      [AssortmentItemType.Tea]: this.groupAssortmentByItemType(AssortmentItemType.Tea, this.apiService.getAssortment()),
-      [AssortmentItemType.Coffee]: this.groupAssortmentByItemType(AssortmentItemType.Coffee, this.apiService.getAssortment()),
-      [AssortmentItemType.Dessert]: this.groupAssortmentByItemType(AssortmentItemType.Dessert, this.apiService.getAssortment()),
+      [AssortmentCategory.Food]: this.groupAssortmentByItemType(AssortmentCategory.Food, this.apiService.getAssortment()),
+      [AssortmentCategory.Coffee]: this.groupAssortmentByItemType(AssortmentCategory.Coffee, this.apiService.getAssortment()),
+      [AssortmentCategory.Drinks]: this.groupAssortmentByItemType(AssortmentCategory.Drinks, this.apiService.getAssortment()),
     };
     this.cart = signal(this.cartService.cart);
   }
 
   private groupAssortmentByItemType(
-    itemType: AssortmentItemType,
+    category: AssortmentCategory,
     assortment$: Observable<{items: AssortmentItem[]}>,
   ): Observable<Array<{
     group: AssortmentGroup | '';
     items: AssortmentItem[];
   }>> {
     return assortment$.pipe(
-      map(assortment => assortment.items.filter(i => i.item_type === itemType)),
-      map(teas => teas.reduce((acc, tea) => {
-        const group = tea.group ?? '';
+      map(assortment => assortment.items.filter(i => i.category === category)),
+      map(assortmentItems => assortmentItems.reduce((acc, assortmentItem) => {
+        const group = assortmentItem.group ?? '';
         if (!acc.has(group)) {
           acc.set(group, []);
         }
-        acc.get(group)?.push(tea)
+        acc.get(group)?.push(assortmentItem)
         return acc;
       }, new Map<AssortmentGroup | '', AssortmentItem[]>())),
-      map(teaMap => Array.from(teaMap.entries()).map(([group, teas]) => ({
+      map(assortmentItemMap => Array.from(assortmentItemMap.entries()).map(([group, assortmentItems]) => ({
         group,
-        items: teas.sort((a, b) => a.sort_order - b.sort_order),
+        items: assortmentItems.sort((a, b) => a.group_order - b.group_order),
       }))),
     );
   }

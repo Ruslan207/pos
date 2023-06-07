@@ -13,11 +13,14 @@
   <mat-list>
     <mat-list-item *ngFor="let item of list()">
       <span matListItemTitle>{{ item.item.name }}</span>
-      <span matListItemLine>{{ item.amount }}шт.
+      <span matListItemLine>{{ item.item.price * item.amount }} грн
         <div class="right-side">
-          <span>{{ item.item.price * item.amount }}грн</span>
-          <button mat-icon-button (click)="removeItem(item.item)">
-            <mat-icon color="warn">delete</mat-icon>
+          <button mat-icon-button (click)="decrementItem(item.item)">
+            <mat-icon color="warn">remove</mat-icon>
+          </button>
+          <span class="amount">{{ item.amount }}</span>
+          <button mat-icon-button (click)="incrementItem(item.item)">
+            <mat-icon color="warn">add</mat-icon>
           </button>
         </div>
       </span>
@@ -34,9 +37,10 @@
   </mat-form-field>
 </main>
 <footer>
+  <div class="total">{{ total() }} грн</div>
   <a routerLink="/order-number">
     <mat-toolbar class="submit">
-      <span>{{ total() }}грн Далі</span>
+      <span>Далі</span>
     </mat-toolbar>
   </a>
 </footer>

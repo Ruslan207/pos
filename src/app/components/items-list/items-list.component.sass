@@ -7,6 +7,11 @@
     overflow: auto
     padding: 15px 15px 0
   > footer
+    .total
+      width: 100%
+      font-size: 20px
+      text-align: center
+      margin: 13px 0
     a
       text-decoration: none
 
@@ -31,6 +36,9 @@ mat-list-item
   margin-bottom: 10px
   background: #f0f0f0
   line-height: 48px
+  padding-right: 0
+  [matListItemTitle]
+    max-width: calc(100% - 106px)
   .right-side
     position: absolute
     right: 0
@@ -38,5 +46,9 @@ mat-list-item
     transform: translateY(-50%)
     display: flex
     align-items: center
-    gap: 10px
+    gap: 0
     padding: 0 10px
+    .amount
+      display: block
+      width: 20px
+      text-align: center

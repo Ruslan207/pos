@@ -29,4 +29,17 @@ export class CartService {
   removeItem(item: AssortmentItem): void {
     this.cart.delete(item.id);
   }
+
+  incrementItem(item: AssortmentItem): void {
+    const current = this.cart.get(item.id);
+    this.cart.set(item.id, (current ?? 0) + 1);
+  }
+
+  decrementItem(item: AssortmentItem): void {
+    const current = this.cart.get(item.id);
+    this.cart.set(item.id, (current ?? 0) - 1);
+    if ((this.cart.get(item.id) ?? 0) <= 0) {
+      this.removeItem(item);
+    }
+  }
 }
