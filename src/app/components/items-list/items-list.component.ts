@@ -72,8 +72,12 @@ export class ItemsListComponent {
     this.cartService.comment.set(comment);
   }
 
-  removeItem(item: AssortmentItem): void {
-    this.cart.mutate(() => this.cartService.removeItem(item));
+  incrementItem(item: AssortmentItem): void {
+    this.cart.mutate(() => this.cartService.incrementItem(item));
+  }
+
+  decrementItem(item: AssortmentItem): void {
+    this.cart.mutate(() => this.cartService.decrementItem(item));
   }
 
   removeAll(): void {

@@ -1,8 +1,6 @@
-import { AssortmentItemType } from './assortment-item-type';
-
 export interface OrderItem {
   id: number;
-  item_type: AssortmentItemType;
+  item_type: string;
   price: number;
   name: string;
 }

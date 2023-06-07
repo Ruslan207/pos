@@ -10,7 +10,7 @@ mat-tab-group
   &.brown
     --mat-tab-header-with-background-background-color: saddlebrown
   &.pink
-    --mat-tab-header-with-background-background-color: deeppink
+    --mat-tab-header-with-background-background-color: darkorange
 
 mat-tab-group::ng-deep
   .mat-mdc-tab-header
@@ -24,12 +24,22 @@ mat-tab-group::ng-deep
     width: 100%
 
 section
-  &.lactose-free
+  &.lemonade
+    background: change-color(lightgoldenrodyellow, $lightness: 90%)
+  &.tea
     background: change-color(lightgreen, $lightness: 90%)
-  &.double
+  &.classic
+    background: change-color(white, $lightness: 90%)
+  &.without-milk
+    background: change-color(saddlebrown, $lightness: 90%)
+  &.coconut-milk
     background: change-color(lightblue, $lightness: 90%)
-  &.double-lactose-free
-    background: change-color(lightcoral, $lightness: 90%)
+  &.almond-milk
+    background: change-color(rosybrown, $lightness: 90%)
+  &.sweet
+    background: change-color(deeppink, $lightness: 90%)
+  &.salty
+    background: change-color(lightblue, $lightness: 90%)
   &.non-group
     background: change-color(lightgoldenrodyellow, $lightness: 90%)
   header
@@ -48,13 +58,15 @@ section
       mat-card
         width: 90px
         height: 90px
-        margin-bottom: 3px
+        margin-bottom: 5px
         user-select: none
         cursor: pointer
         mat-card-content
           line-height: 1.1em
-          padding: 0
-          font-size: 35px
+          padding: 5px
+          box-sizing: border-box
+          font-size: 20px
+          word-break: break-word
           display: flex
           align-items: center
           justify-content: flex-start
@@ -62,6 +74,11 @@ section
           width: 100%
           overflow: hidden
           text-align: left
+      figcaption
+        .value
+          font-weight: 700
+          font-size: 1.1em
+          margin-right: 2px
 
 [mat-fab]
   position: fixed

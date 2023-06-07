@@ -2,16 +2,21 @@
   [backgroundColor]="'primary'"
   [selectedIndex]="selectedTab()"
   (selectedIndexChange)="selectedTab.set($event)"
-  [class.green]="tabs[selectedTab()].value === AssortmentItemType.Tea"
+  [class.green]="tabs[selectedTab()].value === AssortmentItemType.Drinks"
   [class.brown]="tabs[selectedTab()].value === AssortmentItemType.Coffee"
-  [class.pink]="tabs[selectedTab()].value === AssortmentItemType.Dessert"
+  [class.pink]="tabs[selectedTab()].value === AssortmentItemType.Food"
 >
   <mat-tab *ngFor="let tab of tabs" [label]="tab.tab">
     <section
       *ngFor="let group of menu$[tab.value] | async"
-      [class.lactose-free]="group.group === AssortmentGroup.LactoseFree"
-      [class.double]="group.group === AssortmentGroup.Double"
-      [class.double-lactose-free]="group.group === AssortmentGroup.DoubleLactoseFree"
+      [class.classic]="group.group === AssortmentGroup.Classic"
+      [class.without-milk]="group.group === AssortmentGroup.WithoutMilk"
+      [class.coconut-milk]="group.group === AssortmentGroup.CoconutMilk"
+      [class.almond-milk]="group.group === AssortmentGroup.AlmondMilk"
+      [class.lemonade]="group.group === AssortmentGroup.Lemonade"
+      [class.tea]="group.group === AssortmentGroup.Tea"
+      [class.sweet]="group.group === AssortmentGroup.Sweet"
+      [class.salty]="group.group === AssortmentGroup.Salty"
       [class.non-group]="group.group === ''"
     >
       <header>{{ groupNames[group.group] }}</header>
@@ -21,7 +26,10 @@
             <mat-card [matBadge]="cart().get(item.id)" matBadgePosition="above before" matBadgeColor="warn">
               <mat-card-content>{{ item.name }}</mat-card-content>
             </mat-card>
-            <figcaption>{{ item.price }}грн</figcaption>
+            <figcaption>
+              <span class="value">{{ item.price }}</span>
+              <span class="currency">грн</span>
+            </figcaption>
           </figure>
         </div>
       </main>

@@ -1,11 +1,12 @@
 import { AssortmentGroup } from './assortment-group';
-import { AssortmentItemType } from './assortment-item-type';
+import { AssortmentCategory } from './assortment-category';
 
 export interface AssortmentItem {
   id: number;
-  item_type: AssortmentItemType;
+  item_type: string;
   price: number;
   name: string;
-  sort_order: number;
+  group_order: number;
   group: AssortmentGroup | null;
+  category: AssortmentCategory;
 }

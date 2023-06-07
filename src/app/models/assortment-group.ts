@@ -1,5 +1,10 @@
 export enum AssortmentGroup {
-  Double = 'double',
-  LactoseFree = 'lactose_free',
-  DoubleLactoseFree = 'double_lactose_free',
+  Classic = 'classic',
+  WithoutMilk = 'without_milk',
+  CoconutMilk = 'coconut_milk',
+  AlmondMilk = 'almond_milk',
+  Lemonade = 'lemonade',
+  Tea = 'tea',
+  Sweet = 'sweet',
+  Salty = 'salty',
 }
