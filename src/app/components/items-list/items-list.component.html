@@ -38,7 +38,10 @@
 </main>
 <footer>
   <div class="total">{{ total() }} грн</div>
-  <a routerLink="/order-number">
+  <a
+    routerLink="/order-number"
+    [class.disabled]="!((list()?.length ?? 0) > 0)"
+  >
     <mat-toolbar class="submit">
       <span>Далі</span>
     </mat-toolbar>
