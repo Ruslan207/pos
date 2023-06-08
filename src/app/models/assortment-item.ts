@@ -9,4 +9,5 @@ export interface AssortmentItem {
   group_order: number;
   group: AssortmentGroup | null;
   category: AssortmentCategory;
+  background_color: string | null;
 }

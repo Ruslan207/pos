@@ -23,7 +23,12 @@
       <main>
         <div *ngFor="let item of group.items">
           <figure (click)="addItemToCart(item)">
-            <mat-card [matBadge]="cart().get(item.id)" matBadgePosition="above before" matBadgeColor="warn">
+            <mat-card
+              [matBadge]="cart().get(item.id)"
+              matBadgePosition="above before"
+              matBadgeColor="warn"
+              [style.background-color]="item.background_color"
+            >
               <mat-card-content>{{ item.name }}</mat-card-content>
             </mat-card>
             <figcaption>
