@@ -46,13 +46,7 @@ export class OrderNumberComponent implements AfterViewInit {
   }
 
   submitOrder() {
-    const orderNumber = this.cartService.orderNumber();
-    if (orderNumber === null) {
-      this.snackBar.open('❌ Номер заказу null', undefined, {
-        duration: 3000,
-      });
-      return;
-    }
+    let orderNumber = this.cartService.orderNumber() ?? new Date().getTime() % 1500 + 1500;
     this.apiService.getAssortment()
       .pipe(
         switchMap(assortment => {
@@ -65,7 +59,7 @@ export class OrderNumberComponent implements AfterViewInit {
                   orderItems.push(item);
                 }
               }
-            })
+            });
           return this.apiService.makeOrder({
             order_number: orderNumber,
             order_comment: this.cartService.comment(),
@@ -75,7 +69,7 @@ export class OrderNumberComponent implements AfterViewInit {
               price: item.price,
               name: item.name
             })),
-          })
+          });
         }),
         take(1),
       )
